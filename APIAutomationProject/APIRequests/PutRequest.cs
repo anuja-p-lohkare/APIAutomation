@@ -1,11 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using APIAutomationProject.Utilities;
+using Newtonsoft.Json.Linq;
 using RestSharp;
-using RestSharpAutomation.HelperClass.Request;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace APIAutomationProject.APIRequests
 {
@@ -13,16 +8,24 @@ namespace APIAutomationProject.APIRequests
     {
         public string ExecuteUpdateUserRequest(string url, object payload)
         {
-            RestClientHelper rch = new RestClientHelper();
-            string name = null;            
-            var request = rch.GetRestRequest(url, null, Method.Put, payload, DataFormat.Json);
-            var response = rch.SendRequest(request);            
-            if (response.IsSuccessful)
+            try
             {
-                var resDetails = JToken.Parse(response.Content);
-                name = resDetails.SelectToken("name").Value<string>();                
+                string name = null;
+                var apiHelper = new APIHelper();
+
+                var response = apiHelper.ExecuteRestRequest(url, null, Method.Put, payload);
+
+                if (response.IsSuccessful)
+                {
+                    var resDetails = JToken.Parse(response.Content);
+                    name = resDetails.SelectToken("name").Value<string>();
+                }
+                return name;
             }
-            return name;
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }

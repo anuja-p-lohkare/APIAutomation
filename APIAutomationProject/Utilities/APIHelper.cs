@@ -1,18 +1,17 @@
 ﻿using RestSharp;
 
-namespace RestSharpAutomation.HelperClass.Request
+namespace APIAutomationProject.Utilities
 {
-    public class RestClientHelper
+    public class APIHelper
     {
-        //Get client
         public RestClient GetRestClient()
         {
             RestClient restClient = new RestClient();
             return restClient;
         }
 
-        //Get request to send
-        public RestRequest GetRestRequest(string url, Dictionary<string, string> headers, Method method, object body, DataFormat dataFormat)
+
+        public RestResponse ExecuteRestRequest(string url, Dictionary<string, string> headers, Method method, object body)
         {
             RestRequest restRequest = new RestRequest()
             {
@@ -33,15 +32,13 @@ namespace RestSharpAutomation.HelperClass.Request
                 restRequest.AddBody(body);
             }
 
-            return restRequest;
-        }
-
-        //Send request
-        public RestResponse SendRequest(RestRequest restRequest)
-        {
             RestClient restClient = GetRestClient();
             RestResponse restResponse = restClient.Execute(restRequest);
             return restResponse;
-        }     
+
+
+        }
+
+
     }
 }

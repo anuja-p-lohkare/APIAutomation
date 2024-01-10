@@ -1,11 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using APIAutomationProject.Utilities;
+using Newtonsoft.Json.Linq;
 using RestSharp;
-using RestSharpAutomation.HelperClass.Request;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace APIAutomationProject.APIRequests
 {
@@ -13,18 +8,27 @@ namespace APIAutomationProject.APIRequests
     {
         public (string, string) ExecuteCreateUserRequest(string url, object payload)
         {
-            RestClientHelper rch = new RestClientHelper();
-            string name = null;
-            string role = null;                       
-            var request = rch.GetRestRequest(url, null, Method.Post, payload, DataFormat.Json);
-            var response = rch.SendRequest(request);            
-            if (response.IsSuccessful)
+            try
             {
-                var resDetails = JToken.Parse(response.Content);
-                name = resDetails.SelectToken("name").Value<string>();
-                role = resDetails.SelectToken("job").Value<string>();
+                string name = null;
+                string role = null;
+                APIHelper apiHelper = new APIHelper();
+
+                var response = apiHelper.ExecuteRestRequest(url, null, Method.Post, payload);
+
+                if (response.IsSuccessful)
+                {
+                    var resDetails = JToken.Parse(response.Content);
+
+                    name = resDetails.SelectToken("name").Value<string>();
+                    role = resDetails.SelectToken("job").Value<string>();
+                }
+                return (name, role);
             }
-            return (name, role);
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }
