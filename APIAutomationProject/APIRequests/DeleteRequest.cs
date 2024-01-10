@@ -1,11 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using APIAutomationProject.Utilities;
 using RestSharp;
-using RestSharpAutomation.HelperClass.Request;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace APIAutomationProject.APIRequests
 {
@@ -13,15 +8,23 @@ namespace APIAutomationProject.APIRequests
     {
         public bool ExecuteDeleteRequest(string url)
         {
-            RestClientHelper rch = new RestClientHelper();
-            bool flag = false;
-            var request = rch.GetRestRequest(url, null, Method.Delete, null, DataFormat.Json);
-            var response = rch.SendRequest(request);
-            if (response.IsSuccessful)
+            try
             {
-                flag = true;
+                bool flag = false;
+                APIHelper apiHelper = new APIHelper();
+
+                var response = apiHelper.ExecuteRestRequest(url, null, Method.Delete, null);
+
+                if (response.IsSuccessful)
+                {
+                    flag = true;
+                }
+                return flag;
             }
-            return flag;
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }

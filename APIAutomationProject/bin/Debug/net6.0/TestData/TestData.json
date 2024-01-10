@@ -1,39 +1,39 @@
 ﻿{
-  "TestGetUserRequest": {
-    "BaseUrl": "https://reqres.in/",
-    "Resource": "api/users/2",
-    "StatusCode": "200",
-    "FirstName": "Janet",
-    "LastName": "Weaver"
+  "testGetUserRequest": {
+    "baseUrl": "https://reqres.in/",
+    "resource": "api/users/2",
+    "statusCode": "200",
+    "firstName": "Janet",
+    "lastName": "Weaver"
   },
 
-  "TestCreateUserRequest": {
-    "BaseUrl": "https://reqres.in/",
-    "Resource": "api/users",
-    "StatusCode": "200",
-    "Name": "Happy",
-    "Job": "QA",
-    "RequestBody": {
+  "testCreateUserRequest": {
+    "baseUrl": "https://reqres.in/",
+    "resource": "api/users",
+    "statusCode": "200",
+    "name": "Happy",
+    "job": "QA",
+    "requestBody": {
       "name": "Happy",
       "job": "QA"
     }
   },
 
-  "TestChangeUserNameRequest": {
-    "BaseUrl": "https://reqres.in/",
-    "Resource": "api/users/2",
-    "StatusCode": "200",
-    "UpdatedName": "Krishna",
-    "RequestBody": {
+  "testChangeUserNameRequest": {
+    "baseUrl": "https://reqres.in/",
+    "resource": "api/users/2",
+    "statusCode": "200",
+    "updatedName": "Krishna",
+    "requestBody": {
       "name": "Krishna",
       "job": "QA"
     }
   },
 
-  "TestDeleteRequest": {
-    "BaseUrl": "https://reqres.in/",
-    "Resource": "api/users/3",
-    "StatusCode": "200"
+  "testDeleteRequest": {
+    "baseUrl": "https://reqres.in/",
+    "resource": "api/users/3",
+    "statusCode": "200"
   }
 
 }
